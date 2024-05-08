@@ -33,12 +33,14 @@ public class ControllerV1 {
     @Value("/")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public HttpResponse<?> upload(final CompletedFileUpload file, final HttpRequest request) {
+    public HttpResponse<?> upload(final StreamingFileUpload file, final HttpRequest request) {
         try {
+            /*
             FileOutputStream fos = new FileOutputStream(file.getFilename());
             byte[] bytes = file.getBytes();
             fos.write(bytes);
             fos.close();
+            */
             if (!file.getFilename().endsWith(".jar")) {
                 HttpResponse response = HttpResponse.badRequest("{}")
                                                     .contentType(MediaType.APPLICATION_JSON_TYPE)
@@ -53,7 +55,7 @@ public class ControllerV1 {
                 HttpResponse response = HttpResponse.ok(jsonText).contentType(MediaType.APPLICATION_JSON_TYPE).status(HttpStatus.OK);
                 return response;
             }
-        } catch (IOException e) {
+        } catch (Exception e) {
             HttpResponse response = HttpResponse.badRequest("{}")
                                                 .contentType(MediaType.APPLICATION_JSON_TYPE)
                                                 .status(HttpStatus.BAD_REQUEST);
