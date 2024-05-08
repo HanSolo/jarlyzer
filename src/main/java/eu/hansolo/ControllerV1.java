@@ -45,7 +45,7 @@ public class ControllerV1 {
             */
 
             if (file.getFilename().endsWith(".jar")) {
-                File           jarfile  = new File(file.getFilename());
+                File           jarfile  = new File("./" + file.getFilename());
                 TreeNode<Item> treeNode = Scanner.getClassesAndMethods("./" + jarfile.getName());
                 String         jsonText = Helper.toJsonString(jarfile.getName(), treeNode, "", "", "");
                 jarfile.delete();
