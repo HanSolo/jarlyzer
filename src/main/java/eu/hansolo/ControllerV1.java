@@ -15,6 +15,8 @@ import io.micronaut.http.annotation.Produces;
 import io.micronaut.http.multipart.CompletedFileUpload;
 import io.micronaut.http.multipart.StreamingFileUpload;
 import org.reactivestreams.Publisher;
+import org.reactivestreams.Subscriber;
+import org.reactivestreams.Subscription;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -31,16 +33,15 @@ public class ControllerV1 {
     // ******************** Upload JAR file ***********************************
     @Post
     @Value("/")
-    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
+    @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public HttpResponse<?> upload(final StreamingFileUpload file, final HttpRequest request) {
+    public HttpResponse<?> upload(final CompletedFileUpload file, final HttpRequest request) {
         try {
-            /*
             FileOutputStream fos = new FileOutputStream(file.getFilename());
             byte[] bytes = file.getBytes();
             fos.write(bytes);
             fos.close();
-            */
+
             if (!file.getFilename().endsWith(".jar")) {
                 HttpResponse response = HttpResponse.badRequest("{}")
                                                     .contentType(MediaType.APPLICATION_JSON_TYPE)
