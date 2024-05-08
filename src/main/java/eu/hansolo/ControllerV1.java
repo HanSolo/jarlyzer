@@ -35,25 +35,27 @@ public class ControllerV1 {
     @Value("/")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
-    public HttpResponse<?> upload(final CompletedFileUpload file, final HttpRequest request) {
+    public HttpResponse<?> upload(final CompletedFileUpload file) {
         try {
+            /*
             FileOutputStream fos = new FileOutputStream(file.getFilename());
             byte[] bytes = file.getBytes();
             fos.write(bytes);
             fos.close();
+            */
 
-            if (!file.getFilename().endsWith(".jar")) {
-                HttpResponse response = HttpResponse.badRequest("{}")
-                                                    .contentType(MediaType.APPLICATION_JSON_TYPE)
-                                                    .status(HttpStatus.BAD_REQUEST);
-                return response;
-            } else {
+            if (file.getFilename().endsWith(".jar")) {
                 File           jarfile  = new File(file.getFilename());
-                TreeNode<Item> treeNode = Scanner.getClassesAndMethods(jarfile.getName());
+                TreeNode<Item> treeNode = Scanner.getClassesAndMethods("./" + jarfile.getName());
                 String         jsonText = Helper.toJsonString(jarfile.getName(), treeNode, "", "", "");
                 jarfile.delete();
 
                 HttpResponse response = HttpResponse.ok(jsonText).contentType(MediaType.APPLICATION_JSON_TYPE).status(HttpStatus.OK);
+                return response;
+            } else {
+                HttpResponse response = HttpResponse.badRequest("{}")
+                                                    .contentType(MediaType.APPLICATION_JSON_TYPE)
+                                                    .status(HttpStatus.BAD_REQUEST);
                 return response;
             }
         } catch (Exception e) {
