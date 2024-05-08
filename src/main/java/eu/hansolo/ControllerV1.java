@@ -24,13 +24,13 @@ import java.io.IOException;
 import java.net.URI;
 
 
-@Controller("/jarlyzer/")
+@Controller("/jarlyzer")
 //@Secured(SecurityRule.IS_ANONYMOUS)
 public class ControllerV1 {
 
     // ******************** Upload JAR file ***********************************
     @Post
-    @Value("/upload")
+    @Value("/")
     @Consumes(MediaType.MULTIPART_FORM_DATA)
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> upload(final CompletedFileUpload file, final HttpRequest request) {
