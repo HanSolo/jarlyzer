@@ -42,15 +42,19 @@ public class ControllerV1 {
             if (file.getFilename().endsWith(".jar")) {
                 try(FileOutputStream fos = new FileOutputStream(file.getFilename())) {
                     fos.write(file.getBytes());
+                    File           jarfile  = new File(file.getFilename());
+                    TreeNode<Item> treeNode = Scanner.getClassesAndMethods(jarfile.getName());
+                    String         jsonText = Helper.toJsonString(jarfile.getName(), treeNode, "", "", "");
+                    jarfile.delete();
+
+                    HttpResponse response = HttpResponse.ok(jsonText).contentType(MediaType.APPLICATION_JSON_TYPE).status(HttpStatus.OK);
+                    return response;
+                } catch (Exception e) {
+                    HttpResponse response = HttpResponse.badRequest("{}")
+                                                        .contentType(MediaType.APPLICATION_JSON_TYPE)
+                                                        .status(HttpStatus.BAD_REQUEST);
+                    return response;
                 }
-
-                File           jarfile  = new File(file.getFilename());
-                TreeNode<Item> treeNode = Scanner.getClassesAndMethods(jarfile.getName());
-                String         jsonText = Helper.toJsonString(jarfile.getName(), treeNode, "", "", "");
-                jarfile.delete();
-
-                HttpResponse response = HttpResponse.ok(jsonText).contentType(MediaType.APPLICATION_JSON_TYPE).status(HttpStatus.OK);
-                return response;
             } else {
                 HttpResponse response = HttpResponse.badRequest("{}")
                                                     .contentType(MediaType.APPLICATION_JSON_TYPE)
