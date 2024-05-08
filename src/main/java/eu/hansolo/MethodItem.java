@@ -1,7 +1,5 @@
 package eu.hansolo;
 
-import com.azul.icclient.tools.Constants;
-
 
 public class MethodItem extends Item {
     private boolean used;

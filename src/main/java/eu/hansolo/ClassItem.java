@@ -1,6 +1,5 @@
 package eu.hansolo;
 
-import com.azul.icclient.tools.Constants;
 
 import java.util.List;
 
