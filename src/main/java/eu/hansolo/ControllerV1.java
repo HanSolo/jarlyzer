@@ -24,6 +24,8 @@ import java.io.File;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.net.URI;
+import java.nio.file.Files;
+import java.nio.file.Path;
 
 
 @Controller("/jarlyzer")
@@ -37,16 +39,13 @@ public class ControllerV1 {
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> upload(final CompletedFileUpload file) {
         try {
-            /*
-            FileOutputStream fos = new FileOutputStream(file.getFilename());
-            byte[] bytes = file.getBytes();
-            fos.write(bytes);
-            fos.close();
-            */
-
             if (file.getFilename().endsWith(".jar")) {
-                File           jarfile  = new File("./" + file.getFilename());
-                TreeNode<Item> treeNode = Scanner.getClassesAndMethods("./" + jarfile.getName());
+                try(FileOutputStream fos = new FileOutputStream(file.getFilename())) {
+                    fos.write(file.getBytes());
+                }
+
+                File           jarfile  = new File(file.getFilename());
+                TreeNode<Item> treeNode = Scanner.getClassesAndMethods(jarfile.getName());
                 String         jsonText = Helper.toJsonString(jarfile.getName(), treeNode, "", "", "");
                 jarfile.delete();
 
