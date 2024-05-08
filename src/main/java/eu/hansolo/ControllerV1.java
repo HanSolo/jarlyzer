@@ -31,7 +31,7 @@ public class ControllerV1 {
     // ******************** Upload JAR file ***********************************
     @Post
     @Value("/")
-    @Consumes(MediaType.MULTIPART_FORM_DATA)
+    @Consumes(MediaType.APPLICATION_OCTET_STREAM)
     @Produces(MediaType.APPLICATION_JSON)
     public HttpResponse<?> upload(final StreamingFileUpload file, final HttpRequest request) {
         try {
