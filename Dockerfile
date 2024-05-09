@@ -4,7 +4,7 @@ ENV PW='rt4wbwyA'
 
 RUN mkdir /app
 #RUN addgroup --system javauser && adduser -S /bin/false -G javauser javauser && chown -R javauser:javauser /app
-RUN addgroup -S javauser && adduser -S javauser -G javauser && chown -R javauser:javauser /app
+RUN addgroup -S javauser && adduser -S javauser -G javauser
 
 WORKDIR /app
 COPY build/libs/jarlyzer-*-all.jar /app/jarlyzer.jar
