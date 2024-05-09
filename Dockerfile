@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk:21-jdk-latest
+FROM azul/zulu-openjdk:21-latest
 
 ENV PW='rt4wbwyA'
 
