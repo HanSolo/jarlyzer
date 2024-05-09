@@ -1,9 +1,9 @@
 FROM azul/zulu-openjdk-alpine:21-latest
+#FROM azul/zulu-openjdk-alpine:21-jre-headless-latest
 
 ENV PW='rt4wbwyA'
 
 RUN mkdir /app
-
 RUN addgroup --system javauser && adduser -S -s /bin/false -G javauser javauser && chown -R javauser:javauser /app
 
 WORKDIR /app
