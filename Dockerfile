@@ -11,4 +11,4 @@ COPY build/libs/jarlyzer-*-all.jar /app/jarlyzer.jar
 
 USER javauser
 EXPOSE 4443
-CMD ["java", "-Xms2048m", "-Xmx1024m", "-jar", "jarlyzer.jar"]
+CMD ["java", "-Xms2048m", "-Xmx2048m", "-jar", "jarlyzer.jar"]
