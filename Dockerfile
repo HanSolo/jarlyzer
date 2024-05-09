@@ -1,4 +1,4 @@
-FROM azul/zulu-openjdk-alpine:21-jdk-headless-latest
+FROM azul/zulu-openjdk:21-jdk-latest
 
 ENV PW='rt4wbwyA'
 
