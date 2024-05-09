@@ -1,5 +1,8 @@
 package eu.hansolo;
 
+import java.io.IOException;
+import java.nio.file.Files;
+import java.nio.file.Paths;
 import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
@@ -68,5 +71,14 @@ public class Helper {
         jarBuilder.append(SQUARE_BRACKET_CLOSE)
                   .append(CURLY_BRACKET_CLOSE);
         return jarBuilder.toString();
+    }
+
+    public static final void saveTextFile(final String text, final String filename) {
+        try {
+            Files.write(Paths.get(filename), text.getBytes());
+            //System.out.println("Successfully exported text to file " + filename);
+        } catch (IOException e) {
+            //System.out.println("Error saving text file " + filename + ". " + e);
+        }
     }
 }
