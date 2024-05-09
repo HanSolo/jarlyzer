@@ -52,7 +52,6 @@ public class ControllerV1 {
                     } else {
                         final String filename = jarfile.getName().replace(".jar", ".json");
                         final String json     = Helper.toJsonString(jarfile.getAbsolutePath(), treeNode, "", "", "");
-                        Helper.saveTextFile(json, filename);
                         jarfile.delete();
                         return HttpResponse.ok(json).contentType(MediaType.APPLICATION_JSON_TYPE).status(HttpStatus.OK);
                     }
