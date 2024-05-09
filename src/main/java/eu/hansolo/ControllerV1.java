@@ -42,10 +42,10 @@ public class ControllerV1 {
             if (file.getFilename().endsWith(".jar")) {
                 try(FileOutputStream fos = new FileOutputStream(file.getFilename())) {
                     fos.write(file.getBytes());
-                    File           jarfile  = new File(file.getFilename());
+                    File           jarfile  = new File("/app/" + file.getFilename());
                     TreeNode<Item> treeNode = Scanner.getClassesAndMethods(jarfile.getName());
                     String         jsonText = Helper.toJsonString(jarfile.getName(), treeNode, "", "", "");
-                    //jarfile.delete();
+                    jarfile.delete();
 
                     HttpResponse response = HttpResponse.ok(jsonText).contentType(MediaType.APPLICATION_JSON_TYPE).status(HttpStatus.OK);
                     return response;
