@@ -1,9 +1,5 @@
 package eu.hansolo;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
-import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,13 +14,15 @@ import static eu.hansolo.jdktools.Constants.SQUARE_BRACKET_OPEN;
 
 public class Helper {
     public static final String toJsonString(final String jarFilename, final TreeNode<Item> treeNode, final String reportFrom, final String reportTo, final String appEnv) {
-        List<String>  items         = new ArrayList<>();
-        StringBuilder jarBuilder    = new StringBuilder();
-        StringBuilder classBuilder  = new StringBuilder();
-        StringBuilder methodBuilder = new StringBuilder();
+        final List<String>  items         = new ArrayList<>();
+        final StringBuilder jarBuilder    = new StringBuilder();
+        final StringBuilder classBuilder  = new StringBuilder();
+        final StringBuilder methodBuilder = new StringBuilder();
+        final JarItem       jarItem       = (JarItem) treeNode.getItem();
 
         jarBuilder.append(CURLY_BRACKET_OPEN)
                   .append(QUOTES).append(Constants.JAR_FILENAME_FIELD).append(QUOTES).append(COLON).append(QUOTES).append(jarFilename).append(QUOTES).append(COMMA)
+                  .append(QUOTES).append(Constants.NUMBER_OF_CLASSES_FIELD).append(QUOTES).append(COLON).append(jarItem.getNumberOfClasses()).append(COMMA)
                   .append(QUOTES).append(Constants.CLASSES_FIELD).append(QUOTES).append(COLON).append(SQUARE_BRACKET_OPEN);
 
         // Iterate over all classes

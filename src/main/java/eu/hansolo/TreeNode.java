@@ -173,7 +173,7 @@ public class TreeNode<T> {
     }
 
     public static final TreeNode<Item> deepCopy(TreeNode<Item> node) {
-        TreeNode<Item> copy = new TreeNode<Item>(copyItem(node.getItem()));
+        TreeNode<Item> copy = new TreeNode<>(copyItem(node.getItem()));
         for (TreeNode<Item> child : node.getChildren()) {
             copy.getChildren().add(deepCopy(child));
         }

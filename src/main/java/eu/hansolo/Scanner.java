@@ -66,6 +66,8 @@ public class Scanner {
         } catch (Exception ex) {
             return null;
         }
+        JarItem jarItem = (JarItem) jarNode.getItem();
+        jarItem.setNumberOfClasses(jarNode.getHierarchicalNodeList().stream().filter(n -> n.getItem().getType() == Type.CLASS).count());
         return jarNode;
     }
 }
