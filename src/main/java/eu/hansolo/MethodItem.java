@@ -9,7 +9,7 @@ public class MethodItem extends Item {
         this(name.trim(), false);
     }
     public MethodItem(final String name, final boolean used) {
-        super(3, Type.METHOD, name.trim());
+        super(Type.METHOD, name.trim());
         this.used = used;
     }
 

@@ -183,7 +183,7 @@ public class TreeNode<T> {
         switch(item.getType()) {
             case JAR -> {
                 JarItem jarItem = (JarItem) item;
-                return new JarItem(jarItem.getName(), jarItem.getLastTimeSaved().isPresent() ? jarItem.getLastTimeSaved().get() : null);
+                return new JarItem(jarItem.getName(), jarItem.getNumberOfClasses());
             }
             case PACKAGE -> {
                 PackageItem pkgItem = (PackageItem) item;

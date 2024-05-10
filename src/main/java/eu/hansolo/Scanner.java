@@ -13,8 +13,7 @@ public class Scanner {
     public static final TreeNode<Item> getClassesAndMethods(final String filename) {
         TreeNode<Item>  jarNode = new TreeNode<>(new JarItem(filename));
         try {
-            List<String> commands = List.of("/bin/sh", "-c", "jar tf " + filename + " | grep '.class$' | tr / . | sed 's/\\.class$//' | xargs javap -classpath " + filename);
-
+            List<String>   commands  = List.of("/bin/sh", "-c", "jar tf " + filename + " | grep '.class$' | tr / . | sed 's/\\.class$//' | xargs javap -classpath " + filename);
             ProcessBuilder builder   = new ProcessBuilder(commands).redirectErrorStream(true);
             Process        process   = builder.start();
             List<String>   lines     = new BufferedReader(new InputStreamReader(process.getInputStream())).lines().toList();
@@ -56,7 +55,10 @@ public class Scanner {
                             String fullyQualifiedName = className + Constants.PACKAGE_SEPARATOR + methodName;
                             ClassItem classItem = (ClassItem) (classNode.getItem());
                             classItem.setNumberOfMethods(classItem.getNumberOfMethods() + 1);
-                            new TreeNode<>(new MethodItem(fullyQualifiedName), classNode);
+                                MethodItem methodItem = new MethodItem(fullyQualifiedName);
+                                if (classNode.getChildren().stream().filter(n -> n.getItem().equals(methodItem)).count() == 0) {
+                                    new TreeNode<>(methodItem, classNode);
+                                }
                         }
                     }
                 }

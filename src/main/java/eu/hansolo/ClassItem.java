@@ -13,7 +13,7 @@ public class ClassItem extends Item {
         this(name.trim(), 0, 0);
     }
     public ClassItem(final String name, final long numberOfMethods, final double percentageUsed) {
-        super(2, Type.CLASS, name.trim());
+        super(Type.CLASS, name.trim());
         this.packageName     = name.contains(Constants.PACKAGE_SEPARATOR) ? name.substring(0, name.lastIndexOf(Constants.PACKAGE_SEPARATOR)) : "";
         this.numberOfMethods = numberOfMethods;
         this.percentageUsed  = percentageUsed;

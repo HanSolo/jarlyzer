@@ -23,14 +23,8 @@ public class Helper {
         StringBuilder classBuilder  = new StringBuilder();
         StringBuilder methodBuilder = new StringBuilder();
 
-        String sourceName = jarFilename;
-
         jarBuilder.append(CURLY_BRACKET_OPEN)
-                  .append(QUOTES).append(Constants.JAR_FILENAME_FIELD).append(QUOTES).append(COLON).append(QUOTES).append(sourceName).append(QUOTES).append(COMMA)
-                  .append(QUOTES).append(Constants.LAST_TIME_SAVED_FIELD).append(QUOTES).append(COLON).append(Instant.now().getEpochSecond()).append(COMMA)
-                  .append(QUOTES).append(Constants.FROM_FIELD).append(QUOTES).append(COLON).append(QUOTES).append(reportFrom).append(QUOTES).append(COMMA)
-                  .append(QUOTES).append(Constants.TO_FIELD).append(QUOTES).append(COLON).append(QUOTES).append(reportTo).append(QUOTES).append(COMMA)
-                  .append(QUOTES).append(Constants.APP_ENV_FIELD).append(QUOTES).append(COLON).append(QUOTES).append(appEnv).append(QUOTES).append(COMMA)
+                  .append(QUOTES).append(Constants.JAR_FILENAME_FIELD).append(QUOTES).append(COLON).append(QUOTES).append(jarFilename).append(QUOTES).append(COMMA)
                   .append(QUOTES).append(Constants.CLASSES_FIELD).append(QUOTES).append(COLON).append(SQUARE_BRACKET_OPEN);
 
         // Iterate over all classes
@@ -71,14 +65,5 @@ public class Helper {
         jarBuilder.append(SQUARE_BRACKET_CLOSE)
                   .append(CURLY_BRACKET_CLOSE);
         return jarBuilder.toString();
-    }
-
-    public static final void saveTextFile(final String text, final String filename) {
-        try {
-            Files.write(Paths.get(filename), text.getBytes());
-            //System.out.println("Successfully exported text to file " + filename);
-        } catch (IOException e) {
-            //System.out.println("Error saving text file " + filename + ". " + e);
-        }
     }
 }

@@ -4,15 +4,15 @@ import java.util.Objects;
 
 
 public abstract class Item implements Comparable<Item> {
-    protected int    hierarchy;
     protected Type   type;
+    protected int    hierarchy;
     protected String name;
     protected double percentageUsed;
 
 
-    public Item(final int hierarchy, final Type type, final String name) {
-        this.hierarchy = hierarchy;
+    public Item(final Type type, final String name) {
         this.type      = type;
+        this.hierarchy = this.type.getHierarchy();
         this.name      = name;
     }
 

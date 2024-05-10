@@ -13,7 +13,7 @@ public class PackageItem extends Item {
         this(name, fullyQualifiedName, 0);
     }
     public PackageItem(final String name, final String fullyQualifiedName, final long numberOfClasses) {
-        super(1, Type.PACKAGE, name.trim());
+        super(Type.PACKAGE, name.trim());
         this.fullyQualifiedName = fullyQualifiedName;
         this.numberOfClasses    = numberOfClasses;
     }

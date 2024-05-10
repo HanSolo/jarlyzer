@@ -6,20 +6,23 @@ import java.util.Optional;
 
 
 public class JarItem extends Item {
-    private Optional<Instant> lastTimeSaved;
+    private long numberOfClasses;
 
 
     public JarItem(final String name) {
-        this(name, null);
+        this(name, 0);
     }
-    public JarItem(final String name, final Instant lastTimeSaved) {
-        super(0, Type.JAR, name);
-        this.lastTimeSaved = null == lastTimeSaved ? Optional.empty() : Optional.of(lastTimeSaved);
+    public JarItem(final String name, final long numberOfClasses) {
+        super(Type.JAR, name);
+        this.numberOfClasses = numberOfClasses;
     }
 
 
-    public Optional<Instant> getLastTimeSaved() { return this.lastTimeSaved; }
-    public void setLastTimeSaved(final Instant lastTimeSaved) {
-        this.lastTimeSaved = Optional.of(lastTimeSaved);
+    public long getNumberOfClasses() { return this.numberOfClasses; }
+    public void setNumberOfClasses(final long numberOfMethods) { this.numberOfClasses = numberOfMethods; }
+
+    public void setNumberOfClassesAndPercentageUsed(final long numberOfClasses, final double percentageUsed) {
+        this.numberOfClasses = numberOfClasses;
+        this.percentageUsed  = percentageUsed;
     }
 }
