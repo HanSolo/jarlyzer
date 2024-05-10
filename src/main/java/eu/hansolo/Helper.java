@@ -13,7 +13,7 @@ import static eu.hansolo.jdktools.Constants.SQUARE_BRACKET_OPEN;
 
 
 public class Helper {
-    public static final String toJsonString(final String jarFilename, final TreeNode<Item> treeNode, final String reportFrom, final String reportTo, final String appEnv) {
+    public static final String toJsonString(final String jarFilename, final TreeNode<Item> treeNode) {
         final List<String>  items         = new ArrayList<>();
         final StringBuilder jarBuilder    = new StringBuilder();
         final StringBuilder classBuilder  = new StringBuilder();

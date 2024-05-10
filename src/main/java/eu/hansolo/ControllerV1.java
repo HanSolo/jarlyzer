@@ -50,8 +50,7 @@ public class ControllerV1 {
                                                .contentType(MediaType.APPLICATION_JSON_TYPE)
                                                .status(HttpStatus.BAD_REQUEST);
                     } else {
-                        final String filename = jarfile.getName().replace(".jar", ".json");
-                        final String json     = Helper.toJsonString(jarfile.getAbsolutePath(), treeNode, "", "", "");
+                        final String json = Helper.toJsonString(jarfile.getAbsolutePath(), treeNode);
                         jarfile.delete();
                         return HttpResponse.ok(json).contentType(MediaType.APPLICATION_JSON_TYPE).status(HttpStatus.OK);
                     }
