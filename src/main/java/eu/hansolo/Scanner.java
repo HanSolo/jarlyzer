@@ -13,7 +13,7 @@ public class Scanner {
     public static final TreeNode<Item> getClassesAndMethods(final String filename) {
         TreeNode<Item>  jarNode = new TreeNode<>(new JarItem(filename));
         try {
-            List<String>   commands  = List.of("/bin/sh", "-c", "jar tf " + filename + " | grep '.class$' | tr / . | sed 's/\\.class$//' | xargs javap -classpath " + filename);
+            List<String>   commands  = List.of("/bin/sh", "-c", "jar tf " + filename + " | grep '.class$' | tr / . | sed 's/\\.class$//' | xargs javap -p -classpath " + filename);
             ProcessBuilder builder   = new ProcessBuilder(commands).redirectErrorStream(true);
             Process        process   = builder.start();
             List<String>   lines     = new BufferedReader(new InputStreamReader(process.getInputStream())).lines().toList();
@@ -51,13 +51,15 @@ public class Scanner {
                         MatchResult result = methodResults.get(0);
                         String      methodName = result.group(1);
                         methodName = methodName.substring(0, methodName.indexOf("(")).replaceAll("\\.", Constants.PACKAGE_SEPARATOR) + methodName.substring(methodName.indexOf("("));
+                            if (methodName.startsWith("lambda$")) { methodName = methodName.replace("lambda$", ""); }
+                            methodName = methodName.replaceAll("\\$[0-9]+", "");
                         if (!methodName.isEmpty() && !methodName.contains(className)) {
                             String fullyQualifiedName = className + Constants.PACKAGE_SEPARATOR + methodName;
                             ClassItem classItem = (ClassItem) (classNode.getItem());
-                            classItem.setNumberOfMethods(classItem.getNumberOfMethods() + 1);
                                 MethodItem methodItem = new MethodItem(fullyQualifiedName);
                                 if (classNode.getChildren().stream().filter(n -> n.getItem().equals(methodItem)).count() == 0) {
                                     new TreeNode<>(methodItem, classNode);
+                                    classItem.setNumberOfMethods(classItem.getNumberOfMethods() + 1);
                                 }
                         }
                     }
